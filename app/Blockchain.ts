@@ -1,5 +1,5 @@
 import {Block} from './Block'
-import _ from 'lodash'
+import * as _ from 'lodash'
 
 export class Blockchain {
   unconfirmedTransactions
@@ -10,13 +10,13 @@ export class Blockchain {
     this.unconfirmedTransactions = []
     this.chain = []
     this.createGenesisBlock()
-    this.difficulty = 2
+    this.difficulty = 1
   }
 
   createGenesisBlock () {
     let genesisBlock = new Block(0, [], new Date().getTime(), '0')
     genesisBlock.hash = genesisBlock.computeHash()
-    this.chain.append(genesisBlock)
+    this.chain.push(genesisBlock)
   }
 
   getLastBlock (): Block {
@@ -26,7 +26,9 @@ export class Blockchain {
   proofOfWork (block: Block) {
     block.nonce = 0
     let computedHash = block.computeHash()
+    console.log(`computedHash ${computedHash}`)
     while (!_.startsWith(computedHash, _.repeat('0', this.difficulty))) {
+      console.log(`computedHash ${computedHash}`)
       block.nonce += 1
       computedHash = block.computeHash()
     }
@@ -42,7 +44,7 @@ export class Blockchain {
       return false
     }
     block.hash = proof
-    this.chain.append(block)
+    this.chain.push(block)
     return true
   }
 
@@ -51,12 +53,12 @@ export class Blockchain {
   }
 
   addNewTransaction (transaction) {
-    this.unconfirmedTransactions.append(transaction)
+    this.unconfirmedTransactions.push(transaction)
   }
 
   mime () {
     if (this.unconfirmedTransactions.length) {
-      return false
+      return -1
     }
     let lastBlock = this.getLastBlock()
     let newBlock = new Block(lastBlock.index + 1, this.unconfirmedTransactions, new Date().getTime(), lastBlock.hash)

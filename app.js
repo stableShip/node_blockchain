@@ -1,19 +1,11 @@
-const http = require('http')
-const Koa = require('koa')
-const app = new Koa()
-const bodyParser = require('koa-bodyparser')
-
-// middlewares
-app.use(bodyParser())
-
-//
-// const router = require('./app/router')
-// router(app)
-
-
-const server = http.createServer(app.callback())
-if (!module.parent) {
-  server.listen()
-  console.log('server start')
-}
-module.exports = server
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Koa = require("koa");
+var router_1 = require("./app/router");
+var bodyParser = require("koa-bodyparser");
+var app = new Koa();
+app.use(bodyParser());
+app.use(router_1.default.routes());
+app.use(router_1.default.allowedMethods());
+var server = app.listen(3000);
+exports.default = server;

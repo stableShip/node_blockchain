@@ -1,5 +1,6 @@
 import _ = require("lodash");
 import * as crypto from 'crypto'
+import {HexBase64BinaryEncoding, Utf8AsciiBinaryEncoding} from 'crypto'
 
 /**
  * 加密工具类
@@ -19,10 +20,10 @@ export class EncryptTool {
     // 使用的加密字符串
     let key = crypto.createHash('sha256').update(encodeKey).digest()
     // 输入的数据编码
-    let inputEncoding = 'utf8'
+    let inputEncoding: Utf8AsciiBinaryEncoding = 'utf8'
     // 初始化向量
     // 输出数据编码
-    let outputEncoding = 'base64'
+    let outputEncoding: HexBase64BinaryEncoding = 'base64'
     // 创建加密器
     let cipher = crypto.createCipheriv(algorithm, key, '')
     cipher.setAutoPadding(true)
@@ -45,9 +46,9 @@ export class EncryptTool {
     let algorithm = 'AES-256-ECB'
     let key = crypto.createHash('sha256').update(decodeKey).digest()
     // 输出的格式
-    let outputEncoding = 'utf8'
+    let outputEncoding: Utf8AsciiBinaryEncoding = 'utf8'
     // 输入数据编码
-    let inputEncoding = 'base64'
+    let inputEncoding: HexBase64BinaryEncoding = 'base64'
     // 创建解密器
     let decipher = crypto.createDecipheriv(algorithm, key, '')
     decipher.setAutoPadding(true)
