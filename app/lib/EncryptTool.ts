@@ -1,4 +1,3 @@
-import _ = require("lodash");
 import * as crypto from 'crypto'
 import {HexBase64BinaryEncoding, Utf8AsciiBinaryEncoding} from 'crypto'
 

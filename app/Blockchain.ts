@@ -40,6 +40,7 @@ export class Blockchain {
     if (previousHash !== block.previousHash) {
       return false
     }
+    // 工作量验证, 验证区块有效性
     if (!this.isValidProof(block, proof)) {
       return false
     }
@@ -57,7 +58,8 @@ export class Blockchain {
   }
 
   mime () {
-    if (this.unconfirmedTransactions.length) {
+    console.log('待挖掘区块数量:', this.unconfirmedTransactions.length)
+    if (!this.unconfirmedTransactions.length) {
       return -1
     }
     let lastBlock = this.getLastBlock()
